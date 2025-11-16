@@ -136,7 +136,8 @@ def main():
     TT = st.number_input(
         "TT",
         min_value=TT_MIN,
-        max_value=TT_MAX
+        max_value=TT_MAX,
+        step = 0.1
     )
     TT_raw = TT
 
@@ -173,9 +174,9 @@ def main():
         st.markdown(
                 f"Based on feature values, predicted possibility of 'Whether adverse reactions to blood transfusion occur after the transfusion' is: <span style='color:red;'>{proba[1] * 100:.2f}%</span>  \n"
                 "Low Risk (0-30%) 🟢  \n"
-                "Standard monitoring protocols apply. No special preparations needed. Transfuse at normal rates with hourly vital sign checks."
+                "Standard monitoring protocols apply. No special preparations needed. Transfuse at normal rates with hourly vital sign checks.  \n"
                 "Medium Risk (30-70%) 🟡  \n"
-                "Enhanced monitoring required. Use leukocyte-reduced blood and slower infusion rates (1-2 mL/kg/h). Monitor vital signs every 30 minutes and keep antihistamines available."
+                "Enhanced monitoring required. Use leukocyte-reduced blood and slower infusion rates (1-2 mL/kg/h). Monitor vital signs every 30 minutes and keep antihistamines available.  \n"
                 "High Risk (70-100%) 🔴  \n"
                 "Aggressive intervention needed. Administer pre-transfusion medications and use washed/irradiated blood products. Transfuse in ICU setting with continuous monitoring and physician supervision.",
                 unsafe_allow_html=True
