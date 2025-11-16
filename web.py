@@ -134,12 +134,11 @@ def main():
     年龄_raw = 年龄
 
     TT = st.number_input(
-        "TT",
+        "Thrombin Time (TT,s)",
         min_value=TT_MIN,
         max_value=TT_MAX,
         step = 0.1
     )
-    TT_raw = TT
 
     血液储存时间 = st.selectbox(
         FEATURE_LABELS['血液储存时间'], LEVEL4_OPTIONS, format_func=LEVEL4_FMT
@@ -158,7 +157,7 @@ def main():
     if st.button("Predict"):
         # 按训练顺序组装输入行
         row = [
-            从发血到输血时间, 是否有原发性血液疾病, 年龄_raw, TT_raw, 血液储存时间, 有无不良反应史, 过敏史, 科室
+            从发血到输血时间, 是否有原发性血液疾病, 年龄_raw, TT, 血液储存时间, 有无不良反应史, 过敏史, 科室
         ]
         input_df = pd.DataFrame([row], columns=FEATURES)
 
