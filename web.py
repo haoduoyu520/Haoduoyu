@@ -30,14 +30,14 @@ FEATURES = [
 
 # 英文显示标签（仅影响界面显示，不影响编码）
 FEATURE_LABELS = {
-    '从发血到输血时间':'The time from blood release to blood transfusion' ,
+    '从发血到输血时间':'The time from blood release to transfusion (BRT,min)' ,
     '年龄':'Age',
-    'TT':'TT',
-    '是否有原发性血液疾病':'Is there any primary blood disease?',
-    '血液储存时间':'Blood storage time',
-    '有无不良反应史': 'Have any adverse reactions occurred?',
-    '过敏史': 'allergic history',
-    '科室': 'administrative or technical offices',
+    'TT':'Thrombin Time (TT,s)',
+    '是否有原发性血液疾病':'Primary Blood Diseases (PBD)',
+    '血液储存时间':'Blood Storage Time (BST)',
+    '有无不良反应史': 'History of adverse reactions (Hx of AR)',
+    '过敏史': 'Allergic History (AH)',
+    '科室': 'Department (Dept.)',
 }
 
 # 字段说明（侧栏说明文字）
@@ -56,7 +56,8 @@ LEVEL6_FMT = lambda x: {0: "ICU", 1: "Surgery department", 2: "General internal 
                         3: "High-risk internal medicine", 4: "Emergency department", 5: "Others"}[x]
 
 LEVEL4_OPTIONS = [0, 1, 2, 3]
-LEVEL4_FMT = lambda x: {0: "Less than 2 weeks", 1: "More than 2 weeks", 2: "More than 2 days", 3: "Less than 2 days"}[x]
+LEVEL4_FMT = lambda x: {0: "Less than 2 weeks(Red Blood Cells)", 1: "More than  2 weeks(Red Blood Cells)",
+                        2: "Less than 2 days(Plasma/Platelet)", 3: "More than 2 days(Plasma/Platelet)"}[x]
 
 
 # 加载模型；为部分环境提供 numpy._core 兼容兜底
@@ -105,44 +106,42 @@ def main():
     st.title("Risk Prediction")
     st.markdown("Enter the inputs below and click Predict.")
 
-    # 三列布局：分组输入控件
-    col1 = st.columns(1)
+    # 添加控件，全部放在一个垂直列中
+    从发血到输血时间 = st.selectbox(
+        FEATURE_LABELS['The time from blood release to transfusion (BRT,min)'], LEVEL2_OPTIONS, format_func=LEVEL2_FMT
+    )
+    是否有原发性血液疾病 = st.selectbox(
+        FEATURE_LABELS['Primary Blood Diseases (PBD)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+    )
 
-    with col1:
-        从发血到输血时间 = st.selectbox(
-            FEATURE_LABELS['The time from blood release to transfusion (BRT,min)'], LEVEL2_OPTIONS, format_func=LEVEL2_FMT
-        )
-        是否有原发性血液疾病 = st.selectbox(
-            FEATURE_LABELS['Primary Blood Diseases (PBD)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
-        )
-        年龄 = st.slider(
-            "Age",
-            min_value= int(AGE_MAX),
-            max_value=int(AGE_MAX),
-            value=int(AGE_MIN),
-            step=1
-        )
-        年龄_raw = 年龄
+    年龄 = st.slider(
+        "Age",
+        min_value=AGE_MIN,
+        max_value=AGE_MAX,
+        value=AGE_MIN,
+        step=1
+    )
+    年龄_raw = 年龄
 
-        TT = st.number_input(
-            "Thrombin Time (TT,s)",
-            min_value = TT_MIN,
-            max_value = TT_MAX
-        )
-        TT_raw = TT
-        血液储存时间 = st.selectbox(
-            FEATURE_LABELS['Blood Storage Time (BST)'], LEVEL4_OPTIONS, format_func=LEVEL4_FMT
-        )
-        有无不良反应史 = st.selectbox(
-            FEATURE_LABELS['History of adverse reactions (Hx of AR)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
-        )
+    TT = st.number_input(
+        "Thrombin Time (TT,s)",
+        min_value=TT_MIN,
+        max_value=TT_MAX
+    )
+    TT_raw = TT
 
-        过敏史 = st.selectbox(
-            FEATURE_LABELS['Allergic History (AH)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
-        )
-        科室 = st.selectbox(
-            FEATURE_LABELS['Department (Dept.)'], LEVEL6_OPTIONS, format_func=LEVEL6_FMT
-        )
+    血液储存时间 = st.selectbox(
+        FEATURE_LABELS['Blood Storage Time (BST)'], LEVEL4_OPTIONS, format_func=LEVEL4_FMT
+    )
+    有无不良反应史 = st.selectbox(
+        FEATURE_LABELS['History of adverse reactions (Hx of AR)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+    )
+    过敏史 = st.selectbox(
+        FEATURE_LABELS['Allergic History (AH)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+    )
+    科室 = st.selectbox(
+        FEATURE_LABELS['Department (Dept.)'], LEVEL6_OPTIONS, format_func=LEVEL6_FMT
+    )
 
 
     if st.button("Predict"):
