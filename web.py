@@ -101,8 +101,8 @@ def main():
 
     AGE_MIN = 1
     AGE_MAX = 95
-    TT_MIN = 1
-    TT_MAX = 70
+    TT_MIN = 1.0
+    TT_MAX = 70.0
 
     # Load model
     try:
