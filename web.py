@@ -77,7 +77,7 @@ def load_model():
 
 
 def main():
-    st.sidebar.title("Prediction Model (Random Forest)")
+    st.sidebar.title("Transfusion Reaction Risk Prediction (Random Forest)")
     st.sidebar.markdown(
         "- Predicts risk of adverse reactions to blood transfusion occur after the transfusion using 8 features.\n"
         "- Binary classification model (Random Forest)."
@@ -106,14 +106,14 @@ def main():
     st.markdown("Enter the inputs below and click Predict.")
 
     # 三列布局：分组输入控件
-    col1, col2, col3 = st.columns(3)
+    col1 = st.columns(1)
 
     with col1:
         从发血到输血时间 = st.selectbox(
-            FEATURE_LABELS['从发血到输血时间'], LEVEL2_OPTIONS, format_func=LEVEL2_FMT
+            FEATURE_LABELS['The time from blood release to transfusion (BRT,min)'], LEVEL2_OPTIONS, format_func=LEVEL2_FMT
         )
         是否有原发性血液疾病 = st.selectbox(
-            FEATURE_LABELS['是否有原发性血液疾病'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+            FEATURE_LABELS['Primary Blood Diseases (PBD)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
         )
         年龄 = st.slider(
             "Age",
@@ -124,28 +124,24 @@ def main():
         )
         年龄_raw = 年龄
 
-
-    with col2:
         TT = st.number_input(
-            "TT",
+            "Thrombin Time (TT,s)",
             min_value = TT_MIN,
             max_value = TT_MAX
         )
         TT_raw = TT
         血液储存时间 = st.selectbox(
-            FEATURE_LABELS['血液储存时间'], LEVEL4_OPTIONS, format_func=LEVEL4_FMT
+            FEATURE_LABELS['Blood Storage Time (BST)'], LEVEL4_OPTIONS, format_func=LEVEL4_FMT
         )
         有无不良反应史 = st.selectbox(
-            FEATURE_LABELS['有无不良反应史'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+            FEATURE_LABELS['History of adverse reactions (Hx of AR)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
         )
 
-
-    with col3:
         过敏史 = st.selectbox(
-            FEATURE_LABELS['过敏史'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+            FEATURE_LABELS['Allergic History (AH)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
         )
         科室 = st.selectbox(
-            FEATURE_LABELS['科室'], LEVEL6_OPTIONS, format_func=LEVEL6_FMT
+            FEATURE_LABELS['Department (Dept.)'], LEVEL6_OPTIONS, format_func=LEVEL6_FMT
         )
 
 
