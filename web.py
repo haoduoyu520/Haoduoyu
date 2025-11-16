@@ -107,11 +107,11 @@ def main():
 
     # 添加控件，全部放在一个垂直列中
     从发血到输血时间 = st.selectbox(
-        FEATURE_LABELS['The time from blood release to transfusion (BRT,min)'], LEVEL2_OPTIONS, format_func=LEVEL2_FMT
+        FEATURE_LABELS['从发血到输血时间'], LEVEL2_OPTIONS, format_func=LEVEL2_FMT
     )
 
     是否有原发性血液疾病 = st.selectbox(
-        FEATURE_LABELS['Primary Blood Diseases (PBD)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+        FEATURE_LABELS['是否有原发性血液疾病'], YES_NO_OPTIONS, format_func=YES_NO_FMT
     )
 
     年龄 = st.slider(
@@ -124,23 +124,23 @@ def main():
     年龄_raw = 年龄
 
     TT = st.number_input(
-        "Thrombin Time (TT,s)",
+        "TT",
         min_value=TT_MIN,
         max_value=TT_MAX
     )
     TT_raw = TT
 
     血液储存时间 = st.selectbox(
-        FEATURE_LABELS['Blood Storage Time (BST)'], LEVEL4_OPTIONS, format_func=LEVEL4_FMT
+        FEATURE_LABELS['血液储存时间'], LEVEL4_OPTIONS, format_func=LEVEL4_FMT
     )
     有无不良反应史 = st.selectbox(
-        FEATURE_LABELS['History of adverse reactions (Hx of AR)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+        FEATURE_LABELS['有无不良反应史'], YES_NO_OPTIONS, format_func=YES_NO_FMT
     )
     过敏史 = st.selectbox(
-        FEATURE_LABELS['Allergic History (AH)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
+        FEATURE_LABELS['过敏史'], YES_NO_OPTIONS, format_func=YES_NO_FMT
     )
     科室 = st.selectbox(
-        FEATURE_LABELS['Department (Dept.)'], LEVEL6_OPTIONS, format_func=LEVEL6_FMT
+        FEATURE_LABELS['科室'], LEVEL6_OPTIONS, format_func=LEVEL6_FMT
     )
 
 
