@@ -48,7 +48,7 @@ FEATURE_DESC = {
 YES_NO_OPTIONS = [0, 1]
 YES_NO_FMT = lambda x: "No" if x == 0 else "Yes"
 
-LEVEL2_OPTIONS = [0, 1]  # 0=Low, 1=Medium, 2=High
+LEVEL2_OPTIONS = [0, 1]
 LEVEL2_FMT = lambda x: {0: "Less than 30 minutes", 1: "More than 30 minutes"}[x]
 
 LEVEL6_OPTIONS = [0, 1, 2, 3, 4, 5]
@@ -103,13 +103,13 @@ def main():
         return
 
     # 页面标题与说明
-    st.title("Risk Prediction")
-    st.markdown("Enter the inputs below and click Predict.")
+    st.title("Transfusion Reaction Risk Prediction")
 
     # 添加控件，全部放在一个垂直列中
     从发血到输血时间 = st.selectbox(
         FEATURE_LABELS['The time from blood release to transfusion (BRT,min)'], LEVEL2_OPTIONS, format_func=LEVEL2_FMT
     )
+
     是否有原发性血液疾病 = st.selectbox(
         FEATURE_LABELS['Primary Blood Diseases (PBD)'], YES_NO_OPTIONS, format_func=YES_NO_FMT
     )
